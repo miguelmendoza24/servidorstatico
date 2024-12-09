@@ -34,8 +34,20 @@ app.get("/get-contacts", async (req, res) => {
 });
 
 
-app.put("/prueba", (req, res) => {
-  res.send("mensaje actualizado: ");
+app.put("/update-contact/:contactID", async (req, res) => {
+  const { contactID } = req.params;
+  const updateFields = req.body
+
+  try {
+    const result = await mongoDB.updateContact(contactID, updateFields)
+
+    if (!result) {
+      return res.status(404).send({message:  "Contacto no encontrado"})
+    }
+    res.status(200).send({message: "Contacto actualizado con éxito"})
+  } catch (error) {
+    res.status(500).send({message: "Error al actualizar el contacto"})
+  }
 });
 
 app.delete("/prueba", (req, res) => {
