@@ -50,8 +50,17 @@ app.put("/update-contact/:contactID", async (req, res) => {
   }
 });
 
-app.delete("/prueba", (req, res) => {
-  res.send("mensaje eliminado");
+app.delete("/delete-contact/:contactID",async (req, res) => {
+  const { contactID } = req.params
+  try {
+    const result = await mongoDB.deleteContact(contactID)
+    if (!result) {
+      return res.status(404).send({message: "Contacto no encontrado"})
+    }
+    res.status(200).send({ message: "Contacto eliminado con éxito" });
+  } catch (error) {
+    res.status(500).send({ message: "Error al eliminar el contacto" });
+  }
 });
 
 app.listen(PORT, async () => {
