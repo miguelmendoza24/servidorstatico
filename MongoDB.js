@@ -1,3 +1,5 @@
+const { Collection } = require("mongodb");
+
 require("dotenv").config();
 const MongoClient = require("mongodb").MongoClient;
 
@@ -51,6 +53,20 @@ MongoDB.prototype.getContacts = async function () {
 };
 
 //update
+MongoDB.prototype.updateContact = async function (contactID, updateFields) {
+  try {
+    const result = await this.collection.updateOne(
+      { contactID: contactID }, { $set: updateFields }
+    )
+    if (result.matchedCount === 0) {
+      console.log("No se encontró ningún contacto con el ID proporcionado.");
+    }
+      console.log("Contacto actualizado con éxito:", result);
+    return result;
+  } catch (error) {
+    console.error("Error al actualizar el contacto:", err);
+  }
+}
 
 module.exports = new MongoDB();
 
