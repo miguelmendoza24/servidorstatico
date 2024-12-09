@@ -1,5 +1,3 @@
-const { Collection } = require("mongodb");
-
 require("dotenv").config();
 const MongoClient = require("mongodb").MongoClient;
 
@@ -67,6 +65,16 @@ MongoDB.prototype.updateContact = async function (contactID, updateFields) {
     console.error("Error al actualizar el contacto:", err);
   }
 }
+
+MongoDB.prototype.deleteContact = async function (contactID) {
+  try {
+    const result = await this.collection.deleteOne({ contactID });
+    return result.deletedCount > 0;
+  } catch (error) {
+    console.error("Error al eliminar el contacto:", error)
+  }
+}
+
 
 module.exports = new MongoDB();
 
