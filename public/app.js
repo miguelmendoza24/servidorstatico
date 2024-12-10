@@ -30,21 +30,20 @@ function addContactPromise(contact) {
   });
 }
 
-function addContact(event) {
+async function addContact(event) {
   event.preventDefault();
 
   const nameValue = nameInput.value.trim();
   const phoneValue = phoneInput.value.trim();
   const contact = { name: nameValue, phone: phoneValue };
 
-  addContactPromise(contact)
-    .then((message) => {
-      console.log(message);
-      renderList()
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  try {
+    const message = await addContactPromise(contact);
+    console.log(message);
+    renderList();
+  } catch (error) {
+    console.error(error);
+  }
   nameInput.value = "";
   phoneInput.value = "";
 }
@@ -54,23 +53,22 @@ function deleteContactPromise(index) {
     setTimeout(() => {
       if (contacts[index]) {
         contacts.splice(index, 1);
-        resolve("contact deleted successfully")
+        resolve("contact deleted successfully");
       } else {
         reject("failed to delete contact: contact not found");
       }
-    }, 1000)
+    }, 1000);
   });
 }
 
-function deleteContact(index) {
-  deleteContactPromise(index)
-    .then((message) => {
-      console.log(message);
-      renderList();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+async function deleteContact(index) {
+  try {
+    const message = await deleteContactPromise(index);
+    console.log(message);
+    renderList();
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function editContact(index) {
@@ -85,32 +83,30 @@ function editContact(index) {
   `;
 }
 
-function saveEdit(index) {
+async function saveEdit(index) {
   const nameInput = document.getElementById(`edit-name-${index}`);
   const phoneInput = document.getElementById(`edit-phone-${index}`);
 
   const nameValue = nameInput.value.trim();
   const phoneValue = phoneInput.value.trim();
-
   const updatedContact = { name: nameValue, phone: phoneValue };
 
-  new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (nameValue && phoneValue) {
-        contacts[index] = updatedContact;
-        resolve("Contact updated successfully");
-      } else {
-        reject("Failed to update contact: invalid data");
-      }
-    }, 1000);
-  })
-    .then((message) => {
-      console.log(message);
-      renderList();
-    })
-    .catch((error) => {
-      console.error(error);
+  try {
+    const message = await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (nameValue && phoneValue) {
+          contacts[index] = updatedContact;
+          resolve("Contact updated successfully");
+        } else {
+          reject("Failed to update contact: invalid data");
+        }
+      }, 1000);
     });
+    console.log(message);
+    renderList();
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function cancelEdit(index) {
