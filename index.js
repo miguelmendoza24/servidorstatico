@@ -1,10 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const mongoDB = require("./mongoDB");
+const cors = require("cors")
 
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(cors())
 app.use(express.static("public"));
 
 
