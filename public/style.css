@@ -1,0 +1,95 @@
+.modal.close {
+  display: none;
+}
+
+.modal{
+  display: block;
+ position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.container {
+  width: 100%;
+  max-width: 600px; 
+}
+
+#contact-list .list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f8f9fa; /* Color de fondo suave */
+}
+
+#contact-list .list-group-item div {
+  flex-grow: 1;
+}
+
+#contact-list .list-group-item .d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#contact-list .list-group-item .edit-btn,
+#contact-list .list-group-item .delete-btn {
+  margin-left: 5px;
+  padding: 5px 10px;
+}
+
+#contact-list .list-group-item .edit-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+#contact-list .list-group-item .delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Ajustes en el Formulario */
+form .form-label {
+  font-weight: bold;
+}
+
+form input,
+form button {
+  margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 15px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}

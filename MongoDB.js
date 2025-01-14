@@ -3,6 +3,7 @@ const { ObjectId } = require("mongodb");
 require("dotenv").config();
 const MongoClient = require("mongodb").MongoClient;
 
+
 function MongoDB() {
   this.db = null;
   this.client = null;
@@ -46,7 +47,7 @@ MongoDB.prototype.addContactToCollection = async function (contact) {
 //read
 MongoDB.prototype.getContacts = async function () {
   try {
-    const contacs = await this.collection.find({}).toArray();
+     contacs = await this.collection.find({}).toArray();
     return contacs
   } catch (err) {
     console.error("Error al obtener los contactos:", err);
@@ -72,7 +73,7 @@ MongoDB.prototype.updateContact = async function (contactID, updateFields) {
     }
     return result;
   } catch (error) {
-    console.error("Error al actualizar el contacto:", err);
+    console.error("Error al actualizar el contacto:", error);
   }
 }
 
