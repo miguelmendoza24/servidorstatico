@@ -1,3 +1,4 @@
+
 let contacts = [];
 const book = document.getElementById("book");
 const nameInput = document.getElementById("name");
@@ -22,25 +23,49 @@ async function renderList() {
 
     contacts.forEach((contact, index) => {
       const li = document.createElement("li");
+       li.classList.add(
+         "list-group-item",
+         "d-flex",
+         "justify-content-between",
+         "align-items-center",
+         "mb-2"
+      );
+      
+      const contactInfo = document.createElement("div");
+      contactInfo.classList.add("contact-info");
 
       const nameSpan = document.createElement("span");
+       nameSpan.classList.add("contact-name");
       nameSpan.textContent = contact.name;
 
       const phoneSpan = document.createElement("span");
-      phoneSpan.textContent = contact.phone;
+       phoneSpan.classList.add("contact-phone");
+      phoneSpan.textContent = " : " + contact.phone;
+      
+      contactInfo.appendChild(nameSpan);
+      contactInfo.appendChild(phoneSpan);
+
+
+      const buttonsDiv = document.createElement("div");
+      buttonsDiv.classList.add("d-flex", "gap-2");
 
       const deleteButton = document.createElement("button");
-      deleteButton.textContent = "Eliminar";
-      deleteButton.onclick = () => deleteContact(index);
+       deleteButton.classList.add("btn", "btn-danger", "delete-btn");
+       deleteButton.textContent = "Delete";
+       deleteButton.onclick = () => deleteContact(index);
 
       const editButton = document.createElement("button");
-      editButton.textContent = "Editar";
+       editButton.classList.add("btn", "btn-warning", "edit-btn");
+       editButton.textContent = "Edit";
       editButton.onclick = () => editContact(index);
+      
 
-      li.appendChild(nameSpan);
-      li.appendChild(phoneSpan);
-      li.appendChild(deleteButton);
-      li.appendChild(editButton);
+       buttonsDiv.appendChild(editButton);
+       buttonsDiv.appendChild(deleteButton);
+
+
+      li.appendChild(contactInfo);
+      li.appendChild(buttonsDiv);
 
       contactList.appendChild(li);
     });
@@ -203,37 +228,6 @@ async function saveEdit(index) {
     console.error(error);
   }
 }
-
-
-function showModal(message) {
-  const modal = document.querySelector("#modal");
-  const modalMessage = document.querySelector("#modal-message");
-  modalMessage.textContent = message;
-  //modal.style.display = "block";
-  modal.classList.add("active");
-  console.log("aqui el add");
-  
-  modal.classList.remove("close");
-  console.log(modal.classList);
-  
-  
-  
-  
-  const closeModal = document.querySelector(".btn-close");
-  closeModal.onclick = () => {
-    modal.classList.remove("active");
-    modal.classList.add("close");
-    console.log("aqui el close");
-    //modal.style.display = "none";
-  };
-
-  window.onclick = (event) => {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  };
-}
-
 
 
 function cancelEdit(index) {
