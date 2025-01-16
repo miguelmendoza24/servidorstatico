@@ -45,3 +45,86 @@
   border-radius: 5px;
   background-color: #f9f9f9;
 }
+
+.custom-list-item {
+  background-color: #e9ecef;
+}
+
+/* Estilo para la lista de contactos */
+#contact-list {
+  padding-left: 0;
+  list-style-type: none;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.custom-list-item {
+  background-color: #f8f9fa; /* Fondo suave */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Estilo para los nombres de los contactos */
+.contact-info {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.contact-name {
+  color: #007bff; /* Color azul para el nombre */
+  font-size: 1.1rem;
+}
+
+/* Estilo para los números de teléfono */
+.contact-phone {
+  font-size: 1.1rem;
+  color: #6c757d; /* Color gris suave */
+}
+
+/* Botones de Editar y Eliminar */
+.d-flex button {
+  margin-left: 10px; /* Espacio entre los botones */
+}
+
+.edit-btn,
+.delete-btn {
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease; /* Animación suave */
+}
+
+/* Efecto Hover en los botones */
+.edit-btn:hover {
+  background-color: #ffc107; /* Amarillo para editar */
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #dc3545; /* Rojo para eliminar */
+  color: white;
+}
+
+/* Añadir algo de padding a los botones para mayor comodidad */
+.btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* Mejorar el diseño en dispositivos móviles */
+@media (max-width: 576px) {
+  .custom-list-item {
+    flex-direction: column; /* Los elementos se apilan en pantallas pequeñas */
+    align-items: flex-start;
+  }
+  .d-flex {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

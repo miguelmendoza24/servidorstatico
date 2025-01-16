@@ -1,3 +1,6 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 
 let contacts = [];
 const book = document.getElementById("book");
@@ -23,46 +26,43 @@ async function renderList() {
 
     contacts.forEach((contact, index) => {
       const li = document.createElement("li");
-       li.classList.add(
-         "list-group-item",
-         "d-flex",
-         "justify-content-between",
-         "align-items-center",
-         "mb-2"
+      li.classList.add(
+        "list-group-item",
+        "d-flex",
+        "justify-content-between",
+        "align-items-center",
+        "mb-2"
       );
-      
+
       const contactInfo = document.createElement("div");
       contactInfo.classList.add("contact-info");
 
       const nameSpan = document.createElement("span");
-       nameSpan.classList.add("contact-name");
+      nameSpan.classList.add("contact-name");
       nameSpan.textContent = contact.name;
 
       const phoneSpan = document.createElement("span");
-       phoneSpan.classList.add("contact-phone");
+      phoneSpan.classList.add("contact-phone");
       phoneSpan.textContent = " : " + contact.phone;
-      
+
       contactInfo.appendChild(nameSpan);
       contactInfo.appendChild(phoneSpan);
-
 
       const buttonsDiv = document.createElement("div");
       buttonsDiv.classList.add("d-flex", "gap-2");
 
       const deleteButton = document.createElement("button");
-       deleteButton.classList.add("btn", "btn-danger", "delete-btn");
-       deleteButton.textContent = "Delete";
-       deleteButton.onclick = () => deleteContact(index);
+      deleteButton.classList.add("btn", "btn-danger", "delete-btn");
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = () => deleteContact(index);
 
       const editButton = document.createElement("button");
-       editButton.classList.add("btn", "btn-warning", "edit-btn");
-       editButton.textContent = "Edit";
+      editButton.classList.add("btn", "btn-warning", "edit-btn");
+      editButton.textContent = "Edit";
       editButton.onclick = () => editContact(index);
-      
 
-       buttonsDiv.appendChild(editButton);
-       buttonsDiv.appendChild(deleteButton);
-
+      buttonsDiv.appendChild(editButton);
+      buttonsDiv.appendChild(deleteButton);
 
       li.appendChild(contactInfo);
       li.appendChild(buttonsDiv);
@@ -71,11 +71,9 @@ async function renderList() {
     });
   } catch (error) {
     console.error("Error al renderizar la lista:", error);
-    showModal("Error al cargar los contactos. Intenta mas tarde.")
+    showModal("Error al cargar los contactos. Intenta mas tarde.");
   }
 }
-
-
 
 //crear-post
 async function addContactPromise(contact) {
@@ -90,15 +88,15 @@ async function addContactPromise(contact) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(contact),
-    })
+    });
     if (!response.ok) {
       const errorData = await response.json();
       console.error(errorData.message);
       return;
     }
     const result = await response.json();
-    return result.message
-  } catch(error) {
+    return result.message;
+  } catch (error) {
     console.error(error.message);
   }
 }
@@ -124,10 +122,10 @@ async function addContact(event) {
     return;
   }
 
-   if (!/^[A-Za-z\s]+$/.test(nameValue)) {
-     showModal("El nombre solo puede contener letras.");
-     return;
-   }
+  if (!/^[A-Za-z\s]+$/.test(nameValue)) {
+    showModal("El nombre solo puede contener letras.");
+    return;
+  }
 
   const contact = { name: nameValue, phone: phoneValue };
 
@@ -153,7 +151,10 @@ async function deleteContactPromise(contactID) {
     );
     if (!response.ok) {
       const errorData = await response.json();
-      console.error("Error al eliminar:", errorData.message || response.statusText)
+      console.error(
+        "Error al eliminar:",
+        errorData.message || response.statusText
+      );
       return;
     }
     const result = await response.json();
@@ -164,13 +165,12 @@ async function deleteContactPromise(contactID) {
   }
 }
 
-
 async function deleteContact(index) {
   const contactID = contacts[index]._id;
   try {
     const message = await deleteContactPromise(contactID);
     console.log(message);
-    contacts.splice(index, 1)
+    contacts.splice(index, 1);
     renderList();
   } catch (error) {
     console.error(error);
@@ -191,7 +191,6 @@ function editContact(index) {
 }
 
 async function saveEdit(index) {
-  
   const nameInput = document.getElementById(`edit-name-${index}`);
   const phoneInput = document.getElementById(`edit-phone-${index}`);
 
@@ -201,7 +200,6 @@ async function saveEdit(index) {
 
   const contactID = contacts[index]._id;
 
-
   try {
     const response = await fetch(
       `http://localhost:3000/update-contact/${contactID}`,
@@ -210,16 +208,14 @@ async function saveEdit(index) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(updatedContact)
+        body: JSON.stringify(updatedContact),
       }
     );
 
     if (!response.ok) {
-
       const errorData = await response.json();
       console.error(errorData.message);
     }
-    
 
     const result = await response.json();
     console.log(result.message);
@@ -229,10 +225,13 @@ async function saveEdit(index) {
   }
 }
 
-
 function cancelEdit(index) {
   renderList();
 }
+
+window.cancelEdit = cancelEdit;
+window.editContact = editContact;
+window.saveEdit = saveEdit;
 
 book.addEventListener("submit", addContact);
 renderList();
