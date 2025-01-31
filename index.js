@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const mongoDB = require("/mongoDB");
+const mongoDB = require("./MongoDB");
 const cors = require("cors");
 const AppError = require("./appError");
 const { ObjectId } = require("mongodb");
