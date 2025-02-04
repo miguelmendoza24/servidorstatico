@@ -9,7 +9,7 @@ const contactList = document.getElementById("contact-list");
 async function renderList() {
   try {
     contactList.innerHTML = "";
-    const response = await fetch("http://localhost:3000/get-contacts");
+    const response = await fetch("https://agenda-contactos-fzyo.onrender.com/get-contacts");
     if (!response.ok) {
       throw new Error(`Error al obtener contactos: ${response.statusText}`);
     }
@@ -79,7 +79,7 @@ async function addContactPromise(contact) {
     return;
   }
   try {
-    const response = await fetch("http://localhost:3000/add-contact", {
+    const response = await fetch("https://agenda-contactos-fzyo.onrender.com/add-contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -141,7 +141,7 @@ async function addContact(event) {
 async function deleteContactPromise(contactID) {
   try {
     const response = await fetch(
-      `http://localhost:3000/delete-contact/${contactID}`,
+      `https://agenda-contactos-fzyo.onrender.com/delete-contact/${contactID}`,
       {
         method: "DELETE",
       }
@@ -199,7 +199,7 @@ async function saveEdit(index) {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/update-contact/${contactID}`,
+      `https://agenda-contactos-fzyo.onrender.com/update-contact/${contactID}`,
       {
         method: "PUT",
         headers: {
